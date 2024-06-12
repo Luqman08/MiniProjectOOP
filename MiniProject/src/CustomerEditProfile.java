@@ -4,7 +4,10 @@ public class CustomerEditProfile {
     private String phone;
 
     public void editProfile(String name, String email, String phone) {
-        // Implement edit profile logic here
+        updateName(name);
+        updateEmail(email);
+        updatePhone(phone);
+        // Implement additional edit profile logic here
     }
 
     public void updateName(String name) {
@@ -17,5 +20,10 @@ public class CustomerEditProfile {
 
     public void updatePhone(String phone) {
         this.phone = phone;
+    }
+
+    // Optional method to display the current profile
+    public String displayProfile() {
+        return "Name: " + this.name + ", Email: " + this.email + ", Phone: " + this.phone;
     }
 }

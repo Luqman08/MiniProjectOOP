@@ -1,4 +1,12 @@
 public class CustomerMainPage {
+    private CustomerEditProfile customerEditProfile;
+    private CustomerBooking customerBooking;
+
+    public CustomerMainPage() {
+        // Initialize customerBooking as it's always needed
+        this.customerBooking = new CustomerBooking();
+    }
+
     public void viewMainPage() {
         // Implement view main page logic here
     }
@@ -25,7 +33,20 @@ public class CustomerMainPage {
         // Implement manage booking logic here
     }
 
-    public void editProfile(CustomerEditProfile profile) {
-        // Implement edit profile logic here
+    public void editProfile() {
+        if (this.customerEditProfile == null) {
+            this.customerEditProfile = new CustomerEditProfile();
+        }
+        // Implement edit profile logic using this.customerEditProfile
+    }
+
+    // Optional method to check if edit profile is available
+    public boolean isEditProfileAvailable() {
+        return this.customerEditProfile != null;
+    }
+
+    public static void main(String[] args) {
+        CustomerMainPage mainPage = new CustomerMainPage();
+        // Test main page functionalities
     }
 }
