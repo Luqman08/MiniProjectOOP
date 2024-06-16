@@ -5,9 +5,11 @@ public class CustomerBooking {
     private Car car;
     private Date bookingDate;
     private Date returnDate;
+    private String status; // Pending, Accepted, Rejected
 
     // Default constructor for CustomerBooking
     public CustomerBooking() {
+        this.status = "Pending"; // Default status is "Pending"
     }
 
     public CustomerBooking(String bookingId, Car car, Date bookingDate, Date returnDate) {
@@ -15,6 +17,7 @@ public class CustomerBooking {
         this.car = car;
         this.bookingDate = bookingDate;
         this.returnDate = returnDate;
+        this.status = "Pending"; // Default status is "Pending"
     }
 
     public String getBookingId() {
@@ -49,6 +52,14 @@ public class CustomerBooking {
         this.returnDate = returnDate;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void createBooking(String bookingId, Car car, Date bookingDate, Date returnDate) {
         this.bookingId = bookingId;
         this.car = car;
@@ -63,6 +74,7 @@ public class CustomerBooking {
         System.out.println("Car: " + car.getBrand() + " " + car.getModel());
         System.out.println("Booking Date: " + bookingDate);
         System.out.println("Return Date: " + returnDate);
+        System.out.println("Status: " + status);
     }
 
     public void editBooking(String bookingId, Car car, Date bookingDate, Date returnDate) {

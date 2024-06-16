@@ -1,4 +1,7 @@
-public class Car {
+import java.io.Serializable;
+
+public class Car implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String carId;
     private String brand;
     private String model;
@@ -54,6 +57,15 @@ public class Car {
     }
 
     public void editCar(String carId, String brand, String model, String colour, boolean available) {
-        // Implement edit car logic here
+        this.carId = carId;
+        this.brand = brand;
+        this.model = model;
+        this.colour = colour;
+        this.available = available;
+    }
+
+    @Override
+    public String toString() {
+        return "Car ID: " + carId + ", Brand: " + brand + ", Model: " + model + ", Colour: " + colour + ", Available: " + available;
     }
 }

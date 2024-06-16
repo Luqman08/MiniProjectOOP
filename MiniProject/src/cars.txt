@@ -1,0 +1,3 @@
+Car ID:Brand:Model:Colour:Available
+ABC123:Toyota:Corolla:Red:true
+XYZ789:Honda:Civic:Blue:false
