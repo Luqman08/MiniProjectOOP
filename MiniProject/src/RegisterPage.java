@@ -1,29 +1,27 @@
+import javax.swing.*;
+import java.io.*;
+import java.util.ArrayList;
+
 public class RegisterPage {
-    private String username;
-    private String password;
-    private String email;
+    private ArrayList<User> users;
 
-    public boolean register(String username, String password, String email) {
-        // Implement register logic here
-        return false;
+    public RegisterPage(ArrayList<User> users) {
+        this.users = users;
     }
 
-    public void showPage() {
-        // Implement show page logic here
+    public void register() {
+        String username = JOptionPane.showInputDialog(null, "Enter Username:");
+        String password = JOptionPane.showInputDialog(null, "Enter Password:");
+        users.add(new User(username, password));
+        saveUsersToFile();
+        JOptionPane.showMessageDialog(null, "Registration Successful!");
     }
 
-    public boolean verifyUsername() {
-        // Implement verify username logic here
-        return false;
-    }
-
-    public boolean verifyEmail() {
-        // Implement verify email logic here
-        return false;
-    }
-
-    public boolean verifyPassword() {
-        // Implement verify password logic here
-        return false;
+    private void saveUsersToFile() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("users.dat"))) {
+            oos.writeObject(users);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

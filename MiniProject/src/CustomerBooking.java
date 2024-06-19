@@ -1,23 +1,22 @@
+import javax.swing.JOptionPane;
+import java.io.Serializable;
 import java.util.Date;
 
-public class CustomerBooking {
+public class CustomerBooking implements Serializable {
     private String bookingId;
     private Car car;
     private Date bookingDate;
     private Date returnDate;
-    private String status; // Pending, Accepted, Rejected
+    private String customerEmail;
+    private String status; // New field
 
-    // Default constructor for CustomerBooking
-    public CustomerBooking() {
-        this.status = "Pending"; // Default status is "Pending"
-    }
-
-    public CustomerBooking(String bookingId, Car car, Date bookingDate, Date returnDate) {
+    public CustomerBooking(String bookingId, Car car, Date bookingDate, Date returnDate, String customerEmail) {
         this.bookingId = bookingId;
         this.car = car;
         this.bookingDate = bookingDate;
         this.returnDate = returnDate;
-        this.status = "Pending"; // Default status is "Pending"
+        this.customerEmail = customerEmail;
+        this.status = "Pending"; // Initialize with default status
     }
 
     public String getBookingId() {
@@ -52,6 +51,14 @@ public class CustomerBooking {
         this.returnDate = returnDate;
     }
 
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -60,47 +67,38 @@ public class CustomerBooking {
         this.status = status;
     }
 
-    public void createBooking(String bookingId, Car car, Date bookingDate, Date returnDate) {
-        this.bookingId = bookingId;
-        this.car = car;
-        this.bookingDate = bookingDate;
-        this.returnDate = returnDate;
-        // Implement create booking logic here
+    public void makeBooking() {
+        System.out.println("Booking made: " + this);
     }
 
-    public void viewBooking() {
-        // Implement view booking logic here
-        System.out.println("Booking ID: " + bookingId);
-        System.out.println("Car: " + car.getBrand() + " " + car.getModel());
-        System.out.println("Booking Date: " + bookingDate);
-        System.out.println("Return Date: " + returnDate);
-        System.out.println("Status: " + status);
+    public void cancelBooking() {
+        System.out.println("Booking cancelled: " + this);
     }
 
-    public void editBooking(String bookingId, Car car, Date bookingDate, Date returnDate) {
-        this.bookingId = bookingId;
-        this.car = car;
-        this.bookingDate = bookingDate;
-        this.returnDate = returnDate;
-        // Implement edit booking logic here
+    public void viewBookingDetails() {
+        System.out.println("Booking details: " + this);
     }
 
-    public void viewCar() {
-        // Implement view car logic here
-        System.out.println("Car ID: " + car.getCarId());
-        System.out.println("Brand: " + car.getBrand());
-        System.out.println("Model: " + car.getModel());
-        System.out.println("Colour: " + car.getColour());
-        System.out.println("Available: " + car.isAvailable());
+    @Override
+    public String toString() {
+        return "CustomerBooking{" +
+                "bookingId='" + bookingId + '\'' +
+                ", car=" + car +
+                ", bookingDate=" + bookingDate +
+                ", returnDate=" + returnDate +
+                ", customerEmail='" + customerEmail + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 
-    public void setBookingPickupDate(Date pickupDate) {
-        this.bookingDate = pickupDate;
-        // Implement set booking pickup date logic here
-    }
+    public void showBookingInfoDialog() {
+        String message = "Booking ID: " + bookingId + "\n" +
+                "Car: " + car + "\n" +
+                "Booking Date: " + bookingDate + "\n" +
+                "Return Date: " + returnDate + "\n" +
+                "Customer Email: " + customerEmail + "\n" +
+                "Status: " + status;
 
-    public void setBookingDropDate(Date dropDate) {
-        this.returnDate = dropDate;
-        // Implement set booking drop date logic here
+        JOptionPane.showMessageDialog(null, message, "Booking Details", JOptionPane.INFORMATION_MESSAGE);
     }
 }

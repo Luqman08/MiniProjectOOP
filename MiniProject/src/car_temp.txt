@@ -1,0 +1,5 @@
+C001,Toyota,Corolla,Red,false
+C002,Honda,Civic,Blue,true
+C003,Ford,Focus,Black,true
+C004,Chevrolet,Malibu,White,true
+C005,Nissan,Altima,Gray,false

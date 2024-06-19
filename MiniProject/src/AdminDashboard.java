@@ -5,12 +5,12 @@ import java.util.List;
 public class AdminDashboard {
     private AdminCarList carList;
     private List<CustomerBooking> bookings;
-    private AdminApproval adminApproval; // Association with AdminApproval
+    private AdminApproval adminApproval;
 
     public AdminDashboard() {
         carList = new AdminCarList();
         bookings = new ArrayList<>();
-        adminApproval = new AdminApproval(); // Initialize AdminApproval instance
+        adminApproval = new AdminApproval();
     }
 
     public void viewDashboard() {
@@ -61,10 +61,5 @@ public class AdminDashboard {
 
     public void manageCars() {
         carList.manageCars();
-    }
-
-    public static void main(String[] args) {
-        AdminDashboard dashboard = new AdminDashboard();
-        dashboard.showLoginPage();
     }
 }

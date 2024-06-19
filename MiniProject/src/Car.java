@@ -1,7 +1,6 @@
 import java.io.Serializable;
 
 public class Car implements Serializable {
-    private static final long serialVersionUID = 1L;
     private String carId;
     private String brand;
     private String model;
@@ -66,6 +65,12 @@ public class Car implements Serializable {
 
     @Override
     public String toString() {
-        return "Car ID: " + carId + ", Brand: " + brand + ", Model: " + model + ", Colour: " + colour + ", Available: " + available;
+        return "Car{" +
+                "carId='" + carId + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", colour='" + colour + '\'' +
+                ", available=" + available +
+                '}';
     }
 }

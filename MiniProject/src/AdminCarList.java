@@ -53,13 +53,13 @@ public class AdminCarList {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":");
+                String[] parts = line.split(",");
                 if (parts.length == 5) {
-                    String carId = parts[0];
-                    String brand = parts[1];
-                    String model = parts[2];
-                    String colour = parts[3];
-                    boolean available = Boolean.parseBoolean(parts[4]);
+                    String carId = parts[0].trim();
+                    String brand = parts[1].trim();
+                    String model = parts[2].trim();
+                    String colour = parts[3].trim();
+                    boolean available = Boolean.parseBoolean(parts[4].trim());
                     Car car = new Car(carId, brand, model, colour, available);
                     carList.add(car);
                 }
@@ -72,7 +72,7 @@ public class AdminCarList {
     private void saveCars() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Car car : carList) {
-                writer.write(car.getCarId() + ":" + car.getBrand() + ":" + car.getModel() + ":" + car.getColour() + ":" + car.isAvailable());
+                writer.write(car.getCarId() + "," + car.getBrand() + "," + car.getModel() + "," + car.getColour() + "," + car.isAvailable());
                 writer.newLine();
             }
         } catch (IOException e) {
