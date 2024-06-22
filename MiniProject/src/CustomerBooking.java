@@ -7,7 +7,7 @@ public class CustomerBooking implements Serializable {
     private Car car;
     private Date bookingDate;
     private Date returnDate;
-    private String customerUsername;
+    private String customerUsername; 
     private String status; // New field
 
     public CustomerBooking(String bookingId, Car car, Date bookingDate, Date returnDate, String customerUsername) {

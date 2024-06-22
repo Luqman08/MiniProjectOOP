@@ -12,10 +12,9 @@ public class RegisterPage {
     public void register() {
         String username = JOptionPane.showInputDialog(null, "Enter Username:");
         String password = JOptionPane.showInputDialog(null, "Enter Password:");
-        String[] roles = {"customer", "admin"};
-        String role = (String) JOptionPane.showInputDialog(null, "Select Role:", "Role", JOptionPane.QUESTION_MESSAGE, null, roles, roles[0]);
+        String role = "customer"; // Set the role to "customer"
 
-        if (username != null && password != null && role != null) {
+        if (username != null && password != null) {
             users.add(new User(username, password, role));
             saveUsersToFile();
             JOptionPane.showMessageDialog(null, "Registration Successful!");

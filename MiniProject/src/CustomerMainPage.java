@@ -54,7 +54,7 @@ public class CustomerMainPage extends JFrame {
         SwingUtilities.invokeLater(() -> setVisible(true));
     }
 
-    public void viewAvailableCars() {
+    public void viewAvailableCars() { 
         StringBuilder carList = new StringBuilder();
         for (Car car : availableCars) {
             if (car.isAvailable()) {

@@ -35,7 +35,7 @@ public class CustomerEditProfile extends JDialog {
         saveButton = new JButton("Save");
         saveButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { 
                 saveProfile();
             }
         });
