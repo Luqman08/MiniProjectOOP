@@ -1,40 +1,43 @@
 import javax.swing.*;
-import java.io.*;
 import java.util.ArrayList;
 
-public class MainPage {
-    public static void main(String[] args) {
-        ArrayList<User> users = loadUsersFromTextFile();
-        String[] options = { "Login", "Register" };
-        int choice = JOptionPane.showOptionDialog(null, "Choose an option", "User Authentication",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+public class MainPage extends JFrame {
+    private static ArrayList<User> users;
 
-        if (choice == 0) {
+    public MainPage() {
+        setTitle("Main Page");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Add your main page components here
+        JButton loginButton = new JButton("Login");
+        loginButton.addActionListener(e -> {
             LoginPage loginPage = new LoginPage(users);
-            loginPage.login();
-        } else if (choice == 1) {
+            loginPage.setVisible(true);
+            this.setVisible(false);
+        });
+
+        JButton registerButton = new JButton("Register");
+        registerButton.addActionListener(e -> {
             RegisterPage registerPage = new RegisterPage(users);
             registerPage.register();
-        }
+        });
+
+        JPanel panel = new JPanel();
+        panel.add(loginButton);
+        panel.add(registerButton);
+
+        add(panel);
     }
 
-    private static ArrayList<User> loadUsersFromTextFile() {
-        ArrayList<User> users = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 2) {
-                    users.add(new User(parts[0], parts[1]));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
+    public static void main(String[] args) {
+        users = RegisterPage.loadUsersFromFile();
+        System.out.println("Loaded users: " + users);
 
-    public void display() {
-        JOptionPane.showMessageDialog(null, "Welcome to the Car Rental Website!");
+        SwingUtilities.invokeLater(() -> {
+            MainPage mainPage = new MainPage();
+            mainPage.setVisible(true);
+        });
     }
 }

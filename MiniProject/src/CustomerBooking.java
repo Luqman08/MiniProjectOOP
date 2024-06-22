@@ -7,15 +7,15 @@ public class CustomerBooking implements Serializable {
     private Car car;
     private Date bookingDate;
     private Date returnDate;
-    private String customerEmail;
+    private String customerUsername;
     private String status; // New field
 
-    public CustomerBooking(String bookingId, Car car, Date bookingDate, Date returnDate, String customerEmail) {
+    public CustomerBooking(String bookingId, Car car, Date bookingDate, Date returnDate, String customerUsername) {
         this.bookingId = bookingId;
         this.car = car;
         this.bookingDate = bookingDate;
         this.returnDate = returnDate;
-        this.customerEmail = customerEmail;
+        this.customerUsername = customerUsername;
         this.status = "Pending"; // Initialize with default status
     }
 
@@ -51,12 +51,12 @@ public class CustomerBooking implements Serializable {
         this.returnDate = returnDate;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
+    public String getCustomerUsername() {
+        return customerUsername;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public void setCustomerUsername(String customerUsername) {
+        this.customerUsername = customerUsername;
     }
 
     public String getStatus() {
@@ -86,7 +86,7 @@ public class CustomerBooking implements Serializable {
                 ", car=" + car +
                 ", bookingDate=" + bookingDate +
                 ", returnDate=" + returnDate +
-                ", customerEmail='" + customerEmail + '\'' +
+                ", customerUsername='" + customerUsername + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }
@@ -96,7 +96,7 @@ public class CustomerBooking implements Serializable {
                 "Car: " + car + "\n" +
                 "Booking Date: " + bookingDate + "\n" +
                 "Return Date: " + returnDate + "\n" +
-                "Customer Email: " + customerEmail + "\n" +
+                "Customer Username: " + customerUsername + "\n" +
                 "Status: " + status;
 
         JOptionPane.showMessageDialog(null, message, "Booking Details", JOptionPane.INFORMATION_MESSAGE);

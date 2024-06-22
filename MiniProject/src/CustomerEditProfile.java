@@ -1,61 +1,61 @@
-import javax.swing.JOptionPane;
-import java.io.Serializable;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CustomerEditProfile implements Serializable {
-    private String name;
-    private String email;
-    private String phone;
+public class CustomerEditProfile extends JDialog {
+    private JTextField usernameField;
+    private JPasswordField passwordField; // Changed to JPasswordField for security
+    private JLabel roleLabel;
+    private JButton saveButton;
+    private User currentCustomer;
 
-    public CustomerEditProfile(String name, String email, String phone) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
+    public CustomerEditProfile(JFrame parent, User currentCustomer) {
+        super(parent, "Edit Profile", true);
+        this.currentCustomer = currentCustomer;
+        
+        setupUI();
     }
 
-    public String getName() {
-        return name;
+    private void setupUI() {
+        setLayout(new GridLayout(4, 2));
+        
+        add(new JLabel("Username:"));
+        usernameField = new JTextField(currentCustomer.getUsername());
+        add(usernameField);
+        
+        add(new JLabel("Password:"));
+        passwordField = new JPasswordField(currentCustomer.getPassword()); // Changed to JPasswordField
+        add(passwordField);
+        
+        add(new JLabel("Role:"));
+        roleLabel = new JLabel(currentCustomer.getRole());
+        add(roleLabel);
+        
+        saveButton = new JButton("Save");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveProfile();
+            }
+        });
+        add(saveButton);
+        
+        setSize(300, 200);
+        setLocationRelativeTo(getParent());
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void updateProfile() {
-        System.out.println("Profile updated: " + this);
-        JOptionPane.showMessageDialog(null, "Profile updated successfully.", "Profile Update",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerEditProfile{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
-    }
-
-    public void showProfileInfoDialog() {
-        String message = "Name: " + name + "\n" +
-                "Email: " + email + "\n" +
-                "Phone: " + phone;
-
-        JOptionPane.showMessageDialog(null, message, "Profile Details", JOptionPane.INFORMATION_MESSAGE);
+    private void saveProfile() {
+        String newUsername = usernameField.getText();
+        String newPassword = new String(passwordField.getPassword()); // Convert password to String
+        
+        if (!newUsername.isEmpty() && !newPassword.isEmpty()) {
+            currentCustomer.setUsername(newUsername);
+            currentCustomer.setPassword(newPassword);
+            JOptionPane.showMessageDialog(this, "Profile updated successfully.", "Profile Update", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Please fill all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
