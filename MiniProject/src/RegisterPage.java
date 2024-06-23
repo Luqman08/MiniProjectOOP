@@ -24,7 +24,7 @@ public class RegisterPage {
     }
 
     private void saveUsersToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("cust.txt"))) {
             for (User user : users) {
                 writer.write(user.toString());
                 writer.newLine();
@@ -36,7 +36,7 @@ public class RegisterPage {
 
     public static ArrayList<User> loadUsersFromFile() {
         ArrayList<User> users = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("cust.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 users.add(User.fromString(line));

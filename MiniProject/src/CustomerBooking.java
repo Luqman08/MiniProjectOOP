@@ -1,5 +1,6 @@
 import javax.swing.JOptionPane;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CustomerBooking implements Serializable {
@@ -8,7 +9,7 @@ public class CustomerBooking implements Serializable {
     private Date bookingDate;
     private Date returnDate;
     private String customerUsername; 
-    private String status; // New field
+    private String status; 
 
     public CustomerBooking(String bookingId, Car car, Date bookingDate, Date returnDate, String customerUsername) {
         this.bookingId = bookingId;
@@ -16,7 +17,7 @@ public class CustomerBooking implements Serializable {
         this.bookingDate = bookingDate;
         this.returnDate = returnDate;
         this.customerUsername = customerUsername;
-        this.status = "Pending"; // Initialize with default status
+        this.status = "Pending";
     }
 
     public String getBookingId() {
@@ -92,13 +93,52 @@ public class CustomerBooking implements Serializable {
     }
 
     public void showBookingInfoDialog() {
-        String message = "Booking ID: " + bookingId + "\n" +
-                "Car: " + car + "\n" +
-                "Booking Date: " + bookingDate + "\n" +
-                "Return Date: " + returnDate + "\n" +
-                "Customer Username: " + customerUsername + "\n" +
-                "Status: " + status;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String message = String.format(
+                "Booking ID: %s\n" +
+                "Car ID: %s\n" +
+                "Brand: %s\n" +
+                "Model: %s\n" +
+                "Colour: %s\n" +
+                "Booking Date: %s\n" +
+                "Return Date: %s\n" +
+                "Customer Username: %s\n" +
+                "Status: %s",
+                bookingId,
+                car.getCarId(),
+                car.getBrand(),
+                car.getModel(),
+                car.getColour(),
+                dateFormat.format(bookingDate),
+                dateFormat.format(returnDate),
+                customerUsername,
+                status
+        );
 
         JOptionPane.showMessageDialog(null, message, "Booking Details", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public String prettyString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return String.format(
+                "Booking ID: %s\n" +
+                "Car ID: %s\n" +
+                "Brand: %s\n" +
+                "Model: %s\n" +
+                "Colour: %s\n" +
+                "Booking Date: %s\n" +
+                "Return Date: %s\n" +
+                "Customer Username: %s\n" +
+                "Status: %s",
+                bookingId,
+                car.getCarId(),
+                car.getBrand(),
+                car.getModel(),
+                car.getColour(),
+                dateFormat.format(bookingDate),
+                dateFormat.format(returnDate),
+                customerUsername,
+                status
+        );
     }
 }

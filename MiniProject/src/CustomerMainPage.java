@@ -28,7 +28,6 @@ public class CustomerMainPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Example UI components
         JButton viewCarsButton = new JButton("View Available Cars");
         viewCarsButton.addActionListener(e -> viewAvailableCars());
 
@@ -54,11 +53,14 @@ public class CustomerMainPage extends JFrame {
         SwingUtilities.invokeLater(() -> setVisible(true));
     }
 
-    public void viewAvailableCars() { 
+    public void viewAvailableCars() {
         StringBuilder carList = new StringBuilder();
+        carList.append("Available Cars:\n");
+        carList.append(String.format("%-10s %-15s %-15s %-10s\n", "Car ID", "Brand", "Model", "Colour"));
+        carList.append("--------------------------------------------------------------\n");
         for (Car car : availableCars) {
             if (car.isAvailable()) {
-                carList.append(car).append("\n");
+                carList.append(String.format("%-10s %-15s %-15s %-10s\n", car.getCarId(), car.getBrand(), car.getModel(), car.getColour()));
             }
         }
         JOptionPane.showMessageDialog(null, carList.length() == 0 ? "No cars available." : carList.toString());
@@ -85,7 +87,7 @@ public class CustomerMainPage extends JFrame {
     }
 
     private void editProfile() {
-        CustomerEditProfile dialog = new CustomerEditProfile(this, currentCustomer);
+        CustomerEditProfile dialog = new CustomerEditProfile(this, currentCustomer, customers);
         dialog.setVisible(true);
         saveCustomers();
     }
@@ -95,8 +97,12 @@ public class CustomerMainPage extends JFrame {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(", ");
-                Car car = new Car(parts[0], parts[1], parts[2], parts[3], Boolean.parseBoolean(parts[4]));
-                availableCars.add(car);
+                if (parts.length == 5) {
+                    Car car = new Car(parts[0], parts[1], parts[2], parts[3], Boolean.parseBoolean(parts[4]));
+                    availableCars.add(car);
+                } else {
+                    System.err.println("Invalid car data: " + line);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -130,12 +136,17 @@ public class CustomerMainPage extends JFrame {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(", ");
-                Car car = new Car(parts[1], parts[2], parts[3], parts[4], Boolean.parseBoolean(parts[5]));
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date bookingDate = dateFormat.parse(parts[6]);
-                Date returnDate = dateFormat.parse(parts[7]);
-                CustomerBooking booking = new CustomerBooking(parts[0], car, bookingDate, returnDate, parts[8]);
-                bookings.add(booking);
+                if (parts.length == 10) {
+                    Car car = new Car(parts[1], parts[2], parts[3], parts[4], Boolean.parseBoolean(parts[5]));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date bookingDate = dateFormat.parse(parts[6]);
+                    Date returnDate = dateFormat.parse(parts[7]);
+                    CustomerBooking booking = new CustomerBooking(parts[0], car, bookingDate, returnDate, parts[8]);
+                    booking.setStatus(parts[9]);
+                    bookings.add(booking);
+                } else {
+                    System.err.println("Invalid booking data: " + line);
+                }
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -154,7 +165,8 @@ public class CustomerMainPage extends JFrame {
                         String.valueOf(booking.getCar().isAvailable()),
                         new SimpleDateFormat("yyyy-MM-dd").format(booking.getBookingDate()),
                         new SimpleDateFormat("yyyy-MM-dd").format(booking.getReturnDate()),
-                        booking.getCustomerUsername()));
+                        booking.getCustomerUsername(),
+                        booking.getStatus()));
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -189,12 +201,12 @@ public class CustomerMainPage extends JFrame {
             StringBuilder history = new StringBuilder();
             for (CustomerBooking booking : bookings) {
                 if (booking.getCustomerUsername().equals(currentCustomer.getUsername())) {
-                    booking.showBookingInfoDialog(); // Modified to use JOptionPane
+                    history.append(booking.prettyString()).append("\n\n");
                 }
             }
-            JOptionPane.showMessageDialog(null, history.length() == 0 ? "No bookings found." : history.toString());
+            JOptionPane.showMessageDialog(null, history.length() == 0 ? "No bookings found." : history.toString(), "Booking History", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "No customer is logged in.");
+            JOptionPane.showMessageDialog(null, "No customer is logged in.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

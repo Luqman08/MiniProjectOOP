@@ -1,0 +1,5 @@
+user1,password1,customer
+user2,password2,admin
+user3,password3,customer
+luqman,123456789,customer
+anas,987654321,customer

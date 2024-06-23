@@ -26,7 +26,11 @@ public class User implements Serializable {
 
     public static User fromString(String str) {
         String[] parts = str.split(",");
-        return new User(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        if (parts.length == 3) {
+            return new User(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        } else {
+            throw new IllegalArgumentException("Invalid user data: " + str);
+        }
     }
 
     public void setUsername(String username) {

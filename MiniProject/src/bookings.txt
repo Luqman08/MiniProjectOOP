@@ -3,4 +3,6 @@
 9560e5cb-9ea2-4945-965e-522de677d97b, 1, Toyota, Camry, Red, false, 2004-01-01, 2003-01-05, iman, Rejected
 27b5f255-9033-4edf-8410-67cb86b0c6ee, 1, Toyota, Camry, Red, false, 2022-01-01, 2022-01-04, safwan2, Rejected
 08b3af68-3371-4509-9de8-5ff5c3548822, 1, Toyota, Camry, Red, false, 2002-01-01, 2002-01-01, safwan16, Rejected
- 
+ee675a04-3a50-4935-9f65-307e435ff82b, 1, Toyota, Camry, Red, true, 2024-08-08, 2024-08-09, user1, Pending
+e381608b-406e-48cb-82ee-442c2a4b07bb, 2, Honda, Civic, Blue, true, 2024-01-01, 2024-01-02, user1, Pending
+b8169113-56b1-4f02-8176-cc538dc57468, 1, Toyota, Camry, Red, true, 2024-02-01, 2024-02-02, user1, Pending
